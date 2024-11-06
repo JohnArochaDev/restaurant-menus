@@ -29,17 +29,29 @@ describe('Restaurant and Menu Models', () => {
     });
 
     test('can find Restaurants', async () => {
-        // TODO - write test
-        expect('NO TEST').toEqual('EXPECTED DATA')
+        let foundRestaurants = await Restaurant.findAll();
+
+        expect(foundRestaurants.length).toBeGreaterThan(0);
+        expect(foundRestaurants[0].name).toEqual('Test Restaurant');
+        expect(foundRestaurants[0].location).toEqual('Test Location');
+        expect(foundRestaurants[0].cuisine).toEqual('Test Cuisine');
     });
 
     test('can find Menus', async () => {
-        // TODO - write test
-        expect('NO TEST').toEqual('EXPECTED DATA')
+        let foundMenus = await Menu.findAll();
+
+        expect(foundMenus.length).toBeGreaterThan(0);
+        expect(foundMenus[0].title).toEqual('Test Item');
     });
 
     test('can delete Restaurants', async () => {
-        // TODO - write test
-        expect('NO TEST').toEqual('EXPECTED DATA')
+        await Restaurant.destroy({
+            where: {
+                name: 'Test Restaurant'
+            }
+        });
+
+        const foundRestaurants = await Restaurant.findAll();
+        expect(foundRestaurants.length).toEqual(0);
     });
 })
