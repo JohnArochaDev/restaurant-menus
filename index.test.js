@@ -17,13 +17,15 @@ describe('Restaurant and Menu Models', () => {
     });
 
     test('can create a Restaurant', async () => {
-        // TODO - write test
-        expect('NO TEST').toEqual('EXPECTED DATA')
+        const restaurant = await Restaurant.create({ name: 'Test Restaurant', location: 'Test Location', cuisine: 'Test Cuisine' });
+        expect(restaurant.name).toEqual('Test Restaurant');
+        expect(restaurant.location).toEqual('Test Location');
+        expect(restaurant.cuisine).toEqual('Test Cuisine');
     });
 
     test('can create a Menu', async () => {
-        // TODO - write test
-        expect('NO TEST').toEqual('EXPECTED DATA')
+        const menu = await Menu.create({title: 'Test Item'})
+        expect(menu.title).toEqual('Test Item')
     });
 
     test('can find Restaurants', async () => {
