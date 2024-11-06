@@ -115,4 +115,17 @@ describe('Testing Association', () => {
         expect(menuRestaurant.location).toEqual('Test Location');
         expect(menuRestaurant.cuisine).toEqual('Test Cuisine');
     });
+
+    test('Menu has many Items', async () => {
+        const menu = await Menu.create({ title: 'Test Title' });
+        const item1 = await Item.create({name: 'Test Name 1', image: 'Test Image 1', price: 1, vegetarian: false, MenuId: menu.id});
+        const item2 = await Item.create({name: 'Test Name 2', image: 'Test Image 2', price: 2, vegetarian: false, MenuId: menu.id});
+
+        const items = await menu.getItems();
+        expect(items.length).toEqual(2);
+        expect(items[0].name).toEqual('Test Name 1');
+        expect(items[1].image).toEqual('Test Image 2');
+        expect(items[0].price).toEqual(1);
+        expect(items[1].vegetarian).toEqual(false);
+    });
 })
