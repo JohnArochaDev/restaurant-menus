@@ -129,3 +129,21 @@ describe('Testing Association', () => {
         expect(items[1].vegetarian).toEqual(false);
     });
 })
+
+describe('Eager loading test', () => {
+    test('Eager loads Restaurant with its Menus', async () => {
+        const restaurant = await Restaurant.create({ name: 'Test Restaurant', location: 'Test Location', cuisine: 'Test Cuisine' });
+        const menu1 = await Menu.create({ title: 'Test Menu 1', RestaurantId: restaurant.id });
+        const menu2 = await Menu.create({ title: 'Test Menu 2', RestaurantId: restaurant.id });
+    
+        const restaurantWithMenus = await Restaurant.findOne({
+            where: { id: restaurant.id },
+            include: [Menu]
+        });
+
+        expect(restaurantWithMenus.Menus.length).toEqual(2);
+        expect(restaurantWithMenus.Menus[0].title).toEqual('Test Menu 1');
+        expect(restaurantWithMenus.Menus[1].title).toEqual('Test Menu 2');
+    });
+});
+
